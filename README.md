@@ -131,12 +131,12 @@ npm install
 npm run dev
 ```
 
-> The React app starts at **http://localhost:5173**  
+> The React app starts at **http://localhost:5175**  
 > API calls are automatically proxied to the backend via Vite
 
 ### 4️⃣ Open the App
 
-Navigate to **http://localhost:5173** in your browser and start exploring! 🎉
+Navigate to **http://localhost:5175** in your browser and start exploring! 🎉
 
 ---
 
@@ -325,24 +325,30 @@ card-spend-analytics/
 
 ---
 
-## 🚀 Deploy to Render
+## 🌐 Live Deployment
 
-This project includes a `render.yaml` Blueprint for one-click deployment to [Render](https://render.com).
+| Service | Platform | URL |
+|---------|----------|-----|
+| **Frontend** | Vercel (Free) | [https://frontend-henna-pi-83.vercel.app](https://frontend-henna-pi-83.vercel.app) |
+| **Backend API** | Render (Docker) | Deploy via Render Dashboard |
 
-### One-Click Deploy
+### Deploy Frontend (Vercel)
 
-1. Push your code to GitHub
-2. Go to [Render Dashboard](https://dashboard.render.com)
-3. Click **New** → **Blueprint**
-4. Connect your GitHub repo (`card-spend-analytics`)
-5. Render will auto-detect the `render.yaml` and deploy both services
+```bash
+cd frontend
+npx vercel --prod
+```
 
-### What Gets Deployed
+### Deploy Backend (Render)
 
-| Service | Type | URL |
-|---------|------|-----|
-| **Backend API** | Docker (Java 17) | `https://card-spend-analytics-api.onrender.com` |
-| **Frontend** | Static Site | `https://card-spend-analytics.onrender.com` |
+1. Go to [Render Dashboard](https://dashboard.render.com) → **New Web Service**
+2. Connect your GitHub repo: `parthkanha03/card-spend-analytics`
+3. Set **Root Directory**: `backend`
+4. Set **Environment**: Docker
+5. Add environment variables:
+   - `PORT` = `8080`
+   - `cors.allowed-origins` = `https://frontend-henna-pi-83.vercel.app`
+6. Click **Create Web Service**
 
 ### Environment Variables
 
@@ -350,15 +356,16 @@ This project includes a `render.yaml` Blueprint for one-click deployment to [Ren
 |---------|----------|---------|
 | Backend | `PORT` | Server port (set by Render) |
 | Backend | `cors.allowed-origins` | Frontend URL for CORS |
-| Frontend | `VITE_API_URL` | Backend API base URL |
+| Frontend | `VITE_API_URL` | Backend API base URL (set in Vercel dashboard) |
 
 ### Post-Deployment
 
-After deploying, update the environment variables with your actual Render URLs:
-- Set `cors.allowed-origins` on the backend to your actual frontend URL
-- Set `VITE_API_URL` on the frontend to your actual backend URL
+After backend is deployed on Render:
+1. Go to Vercel → Project Settings → Environment Variables
+2. Add `VITE_API_URL` = `https://your-backend.onrender.com`
+3. Redeploy the frontend
 
-> **Note:** The free tier on Render spins down after 15 minutes of inactivity. The first request after idle may take ~30 seconds.
+> **Note:** Render free tier spins down after 15 min of inactivity. First request after idle may take ~30 seconds.
 
 ---
 
