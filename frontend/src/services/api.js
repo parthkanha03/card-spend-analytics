@@ -6,6 +6,11 @@ async function request(path, options = {}) {
     ...options,
   });
 
+  const contentType = res.headers.get('content-type') || '';
+  if (!contentType.includes('application/json')) {
+    throw new Error('Backend API is not available. Please ensure the backend server is running.');
+  }
+
   const data = await res.json();
 
   if (!res.ok) {
