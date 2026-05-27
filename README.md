@@ -325,6 +325,43 @@ card-spend-analytics/
 
 ---
 
+## 🚀 Deploy to Render
+
+This project includes a `render.yaml` Blueprint for one-click deployment to [Render](https://render.com).
+
+### One-Click Deploy
+
+1. Push your code to GitHub
+2. Go to [Render Dashboard](https://dashboard.render.com)
+3. Click **New** → **Blueprint**
+4. Connect your GitHub repo (`card-spend-analytics`)
+5. Render will auto-detect the `render.yaml` and deploy both services
+
+### What Gets Deployed
+
+| Service | Type | URL |
+|---------|------|-----|
+| **Backend API** | Docker (Java 17) | `https://card-spend-analytics-api.onrender.com` |
+| **Frontend** | Static Site | `https://card-spend-analytics.onrender.com` |
+
+### Environment Variables
+
+| Service | Variable | Purpose |
+|---------|----------|---------|
+| Backend | `PORT` | Server port (set by Render) |
+| Backend | `cors.allowed-origins` | Frontend URL for CORS |
+| Frontend | `VITE_API_URL` | Backend API base URL |
+
+### Post-Deployment
+
+After deploying, update the environment variables with your actual Render URLs:
+- Set `cors.allowed-origins` on the backend to your actual frontend URL
+- Set `VITE_API_URL` on the frontend to your actual backend URL
+
+> **Note:** The free tier on Render spins down after 15 minutes of inactivity. The first request after idle may take ~30 seconds.
+
+---
+
 ## 🧪 Testing
 
 ```bash
